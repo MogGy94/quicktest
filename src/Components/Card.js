@@ -15,7 +15,7 @@ class Grid extends React.Component{
 
 
 var  FancyCard = (a) => {
-    console.log(a.i)
+    // console.log(a.i)
     var mySt = {width : "100%"}
 
     return(
@@ -49,7 +49,7 @@ var  FancyCard = (a) => {
 export const Ctest = (l) => {
     var cards = new Array(l);
     //var cards = new Array(1,2,3,4,5,6,7,8,9);
-    console.log(cards.length,cards);
+    // console.log(cards.length,cards);
     for(var i = 0 ; i < cards.length ; i++ ){
         cards[i] = <FancyCard i ={i} key={i}></FancyCard>;
     }
