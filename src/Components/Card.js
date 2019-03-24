@@ -14,28 +14,18 @@ class Grid extends React.Component{
 // a = new Array(n);
 
 
-var  FancyCard = (a) => {
-    // console.log(a.i)
+var  FancyCard = ({props}) => {
+    console.log(props)
     var mySt = {width : "100%"}
 
     return(
         <div className="grid-item " draggable="true"> 
-            <div className="CCARD">
-                <input type="checkbox" name=""/>
-                
-                <div className= "toggle"> +</div>
-                <div className= "imgBx">
-                    <img src="/assets/dance.gif" alt="holi"  style={mySt}/>
+            <div className="card">            
+                <div className= "card-img-center imgBx">
+                    <img src={props.Poster} alt="NOT IMAGE AVAIABLE"  style={mySt}/>
                 </div>
-                <div className= "shadow"> +</div>
-                <div className= "details">
-                    
-                    <h2> {a.i+" "}   Relative sizing</h2>
-                    <p>    Icons inherit the font-size of their parent container which allow 
-                        them to match any text you might use with them. With the following
-                        classes, we can increase or decrease the size of icons relative to
-                        that inherited font-size.
-                    </p>
+                <div className= "details">          
+                    <h2>{props.Title}</h2>
                 </div>
             </div>
         </div>
@@ -54,6 +44,22 @@ export const Ctest = (l) => {
         cards[i] = <FancyCard i ={i} key={i}></FancyCard>;
     }
     return cards
+}
+
+export const CListtest = (res) => {
+    // console.log(res.results)
+    var carList
+    var sIndex = Object.keys(res).indexOf("Search")
+    // console.log(Object.keys(res).indexOf("Search"))
+    if (sIndex >= 0){
+        carList = res.Search.map((item,i)=>{
+            console.log(i)
+            return <FancyCard props = {item} key={i+123}></FancyCard>
+        })
+    }
+    
+    console.log(carList)
+    return carList
 }
 
 export default Grid

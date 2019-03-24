@@ -1,12 +1,11 @@
 import React from "react"
 import {QuickContext} from '../Context/Context'
 import {getItems} from '../servicios/consultar'
+
 const NavBar = ()  => {
-   
     return(
         <QuickContext.Consumer>
            {(context) =>{
-               
                var {methods} = context
               
                return(
@@ -26,10 +25,15 @@ const NavBar = ()  => {
 const handleChange  = async (e,methods) =>{
     var {setBusqueda,setResults} = methods;
     setBusqueda(e)
+    
     if (e.target.value.length >= 3 ){
         var name = e.target.value
         var results = await getItems(name)
         setResults(results.data)
+    }else{
+        setResults({
+                Search: []
+        })
     }
 }
 

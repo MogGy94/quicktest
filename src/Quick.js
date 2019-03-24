@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import NavBar from './Components/NavBar'
-import Grid,{Ctest} from './Components/Card'
-import {State} from './Context/State'
+import Grid,{Ctest,CListtest} from './Components/Card'
+
 
 import {getItems} from './servicios/consultar'
 
@@ -11,8 +11,10 @@ import {QuickContext,QuickProvider} from './Context/Context'
 class Quick extends Component {
   constructor(){
     super();
-    this.state = State
-    this.setBusqueda = this.setBusqueda.bind(this)
+    this.state = {
+      results : []
+    }
+    // this.setBusqueda = this.setBusqueda.bind(this)
   }
 
   render() {
@@ -20,37 +22,28 @@ class Quick extends Component {
       <QuickProvider>
         <QuickContext.Consumer>
           {(contex) =>{
-              console.log(contex.state.nombre_de_pelicula,contex.state.nombre_de_pelicula.length)   
-              console.log(contex.state.results)         
+              console.log(contex.state.results)
+              
               return(
                 <div className="App">
                
                   <NavBar></NavBar>
-                  <button type="button" className="btn btn-block btn-outline-primary" onClick={() =>getData()}>getData</button>
                   <ButtonWrapper>
                             <RButton name= "SERIE" onChange={jaja}></RButton>
                             <RButton name= "PELICULA"  onChange={jaja}></RButton>
                   </ButtonWrapper>
-                  
                   <Grid>
-                    {Ctest(10)}
+                   {CListtest(contex.state.results)}
                   </Grid>
+                  
                 </div>
               )
             }
           }
         </QuickContext.Consumer>
       </QuickProvider>
-    );
-  }
+    )} 
 
-  setBusqueda(e){
-    this.setState({nombre_de_pelicula:e.target.value})
-  }
-
-  componentDidMount(){
-
-  }
 }
 
 var getData = async () =>{ 

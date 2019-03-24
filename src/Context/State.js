@@ -3,5 +3,7 @@ export const State ={
     flag_pelicua: false,
     nombre_de_pelicula: "" ,
     page:1,
-    results:[]
+    results:{
+        Search: []
+    }
 }
