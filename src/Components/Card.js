@@ -1,10 +1,12 @@
 import React from 'react'
 
 import './css/Card.css'
+import image from "../assets/noimage.jpg"
+
 class Grid extends React.Component{
     render(){
         return (
-            <div className="grid-container">
+            <div className="grid-container" onScroll={()=>{console.log("scrollin")}}>
                 {this.props.children}
             </div>
         )
@@ -15,17 +17,18 @@ class Grid extends React.Component{
 
 
 var  FancyCard = ({props}) => {
-    console.log(props)
+    // console.log(props)
     var mySt = {width : "100%"}
-
+    // console.log(props.Poster)
     return(
         <div className="grid-item " draggable="true"> 
             <div className="card">            
                 <div className= "card-img-center imgBx">
-                    <img src={props.Poster} alt="NOT IMAGE AVAIABLE"  style={mySt}/>
+                    <img src={props.Poster =="N/A"? image:props.Poster} alt="NOT IMAGE AVAIABLE"  style={mySt}/>
                 </div>
                 <div className= "details">          
-                    <h2>{props.Title}</h2>
+                    <h6>{props.Title}</h6>
+                    <h6>{props.Year}</h6>
                 </div>
             </div>
         </div>
@@ -53,12 +56,12 @@ export const CListtest = (res) => {
     // console.log(Object.keys(res).indexOf("Search"))
     if (sIndex >= 0){
         carList = res.Search.map((item,i)=>{
-            console.log(i)
+            // console.log(i)
             return <FancyCard props = {item} key={i+123}></FancyCard>
         })
     }
     
-    console.log(carList)
+    // console.log(carList)
     return carList
 }
 

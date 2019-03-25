@@ -12,7 +12,28 @@ export class QuickProvider extends Component {
     
     methods = {
         setBusqueda: (e) =>{this.setState({nombre_de_pelicula:e.target.value}) },
-        setResults : (results) => {this.setState({results})}
+        setResults : (results) => {this.setState({results})},
+        setPage: (page) => {this.setState({page})},
+
+        upload_results:(new_res) => {this.setState({
+            results:{
+                ...this.state.results,
+                Search:this.state.results.Search.concat(new_res)
+            }})
+        },
+        set_flag_serie: () =>{
+            this.setState({flag_serie: !this.state.flag_serie})
+            if (this.state.flag_pelicua){
+                this.setState({flag_pelicua:!this.state.flag_pelicua})
+            }
+        },
+        set_flag_pelicua: (flag_serie) =>{
+            this.setState({flag_pelicua:!this.state.flag_pelicua})
+            if (this.state.flag_serie){
+                this.setState({flag_serie: !this.state.flag_serie})
+            }
+        },
+       
     }
     
     render(){

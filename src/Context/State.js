@@ -4,6 +4,7 @@ export const State ={
     nombre_de_pelicula: "" ,
     page:1,
     results:{
-        Search: []
+        Search: [],
+        totalResults: 0
     }
 }

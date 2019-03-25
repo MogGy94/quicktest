@@ -22,20 +22,47 @@ class Quick extends Component {
       <QuickProvider>
         <QuickContext.Consumer>
           {(contex) =>{
-              console.log(contex.state.results)
+              // console.log(contex.state.results)
+              var {set_flag_pelicua,set_flag_serie} = contex.methods
+              var {flag_pelicua,flag_serie} = contex.state
+              var {totalResults} = contex.state.results
+              window.onscroll = function() {uploadDAta()};
               
+              var uploadDAta = async () => {
+                var {upload_results,setPage} = contex.methods; 
+                var {page,nombre_de_pelicula} = contex.state
+                var bound = 170*page
+
+                console.log("page",page,document.documentElement.scrollTop,document.body.scrollTop)
+                console.log("todo",totalResults,Math.ceil(parseFloat(totalResults)/10),bound)
+                console.log(".................")
+                if (document.body.scrollTop > bound || document.documentElement.scrollTop > bound){
+                  if (page+1 <= Math.ceil(parseFloat(totalResults)/10)){
+                    setPage(page+1)  
+                    
+                    var new_results = await getItems(nombre_de_pelicula,flag_serie?"series":"movie",page+1)
+                    // console.log(new_results.data.Search)
+                    upload_results(new_results.data.Search)
+                  }
+                }
+                
+                
+                // #var results = await getItems(nombre_de_pelicula,flag_pelicua? "movie":"series")
+                // setResults(results.data)
+                
+            }
+            
               return(
                 <div className="App">
                
                   <NavBar></NavBar>
                   <ButtonWrapper>
-                            <RButton name= "SERIE" onChange={jaja}></RButton>
-                            <RButton name= "PELICULA"  onChange={jaja}></RButton>
+                      <RButton c={flag_serie} name= "SERIE" handlerCheck={set_flag_serie}></RButton>
+                      <RButton c={flag_pelicua} name= "PELICULA"  handlerCheck={set_flag_pelicua}></RButton>
                   </ButtonWrapper>
                   <Grid>
                    {CListtest(contex.state.results)}
                   </Grid>
-                  
                 </div>
               )
             }
@@ -43,6 +70,8 @@ class Quick extends Component {
         </QuickContext.Consumer>
       </QuickProvider>
     )} 
+
+      
 
 }
 
@@ -55,31 +84,25 @@ var getData = async () =>{
 
 const RButton = (props) =>{
   // console.log(props)
-return( 
-  <label className="btn btn-outline-info "  >
-      <input type="checkbox" checked autoComplete="off" onChange={()=>jaja}/> {props.name}
-  </label>
-  )
+  return( 
+    <label className=""  >
+        <input checked={props.c} type="checkbox"  autoComplete="off"   onChange={(e)=>props.handlerCheck(e)} /> {props.name}
+    </label>
+    )
 
 }
 
 class ButtonWrapper  extends React.Component{
-  handleChange(){
-      console.log("Holi")
-  }
+
   render(){
      return(
-      <div className="btn-group-toggle" data-toggle="buttons" onChange={() =>this.handleChange()}>
+      <div className="wrapper"  >
           {this.props.children}
       </div>
      )
   }
 }
 
-var jaja = () =>{
-
-  console.log("hoooli")
-}
 
 
 
