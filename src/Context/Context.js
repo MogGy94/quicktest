@@ -14,7 +14,7 @@ export class QuickProvider extends Component {
         setBusqueda: (e) =>{this.setState({nombre_de_pelicula:e.target.value}) },
         setResults : (results) => {this.setState({results})},
         setPage: (page) => {this.setState({page})},
-
+        set_flag_loading :(loading) => {this.setState({loading})} ,
         upload_results:(new_res) => {this.setState({
             results:{
                 ...this.state.results,

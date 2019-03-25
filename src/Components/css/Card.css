@@ -3,7 +3,7 @@
     grid-template-columns: auto auto auto auto;
     /* background-color: rgb(150, 230, 212) ; */
     /* padding: 10px; */
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 .grid-item {

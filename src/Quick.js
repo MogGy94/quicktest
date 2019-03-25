@@ -7,6 +7,22 @@ import Grid,{Ctest,CListtest} from './Components/Card'
 import {getItems} from './servicios/consultar'
 
 import {QuickContext,QuickProvider} from './Context/Context'
+import { isContext } from 'vm';
+
+
+var root= { 
+  primary: '#ddd',
+  dark: '#333',
+  light: '#fff',
+  shadow: '0 1px 5px rgba(104,104,104,0.8)',
+}
+var footerStyle = {
+  marginTop: "2rem",
+  background: root.dark,
+  color: root.light,
+  textAlign: 'center',
+  padding: '1rem',
+}
 
 class Quick extends Component {
   constructor(){
@@ -60,9 +76,11 @@ class Quick extends Component {
                       <RButton c={flag_serie} name= "SERIE" handlerCheck={set_flag_serie}></RButton>
                       <RButton c={flag_pelicua} name= "PELICULA"  handlerCheck={set_flag_pelicua}></RButton>
                   </ButtonWrapper>
+                  {contex.state.loading?  <Loading_stuff></Loading_stuff>:<br></br>}
                   <Grid>
                    {CListtest(contex.state.results)}
                   </Grid>
+                  <footer style={footerStyle}> Proyect desarrollado por Edilberto Cañon Pasquel para aplicar a Quick </footer>
                 </div>
               )
             }
@@ -70,9 +88,6 @@ class Quick extends Component {
         </QuickContext.Consumer>
       </QuickProvider>
     )} 
-
-      
-
 }
 
 var getData = async () =>{ 
@@ -106,7 +121,21 @@ class ButtonWrapper  extends React.Component{
 
 
 
-
+var Loading_stuff = () =>{
+  return(
+    <React.Fragment>
+      <div className="spinner-grow text-primary" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+      <div className="spinner-grow text-primary" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+      <div className="spinner-grow text-primary" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </React.Fragment>
+  )
+}
 
 
 export default Quick;
